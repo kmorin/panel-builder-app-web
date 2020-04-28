@@ -7,6 +7,7 @@ using panel_builder_app_web.Models;
 
 namespace panel_builder_app_web.Controllers{
 
+    [ApiController]
     [Route("[controller]")]
     public class PanelsController : ControllerBase
     {

@@ -1,1 +1,11 @@
-<p>panel-list works!</p>
+<h1>Panel List</h1>
+<div class="container">
+    <div class="mb-0" *ngIf="panels">
+        <div class="card" *ngFor="let panel of panels">
+            <div class="row">
+                <h5>{{panel.name}}</h5>
+                <h6>{{panel.description}}</h6>
+            </div>
+        </div>
+    </div>
+</div>
