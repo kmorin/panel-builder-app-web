@@ -1,3 +1,8 @@
+#-------------------------------------------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
+#-------------------------------------------------------------------------------------------------------------
+
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1
 
 # This Dockerfile adds a non-root user with sudo access. Use the "remoteUser"
@@ -8,12 +13,18 @@ ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
+# [Optional] Version of Node.js to install.
+ARG INSTALL_NODE="true"
+ARG NODE_VERSION="lts/*"
+ENV NVM_DIR=/home/vscode/.nvm
+
+# [Optional] Install the Azure CLI
 ARG INSTALL_AZURE_CLI="false"
 
-# Avoid warnings
+# Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
-# Configure apt and install packages
 
+# Configure apt and install packages
 RUN apt-get update \
     && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \
     #
