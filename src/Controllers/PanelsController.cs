@@ -7,29 +7,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using panel_builder_app_web.Models;
+using System.Threading.Tasks;
 
 namespace panel_builder_app_web.Controllers{
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PanelsController : ControllerBase
     {
         private readonly ILogger<PanelsController> _logger;
+        private readonly IPanelRepository _panelRepository;
 
-        public PanelsController(ILogger<PanelsController> logger){
+        public PanelsController(ILogger<PanelsController> logger, IPanelRepository panelRepository){
             _logger = logger;
+            _panelRepository = panelRepository;
         }
 
         [HttpGet]
-        public IEnumerable<IPanel> Get(){
-            string json = System.IO.File.ReadAllText("Api/panels.json");
-            var p = JsonSerializer.Deserialize<IEnumerable<Panel>>(json);
-            return p;
-            // var p = new Random();
-            // return Enumerable.Range(1,5).Select(x=>new Panel{
-            //     Name = $"Name {p.Next(-10,55)}",
-            //     Description = "Desc"
-            // }).ToArray();
+        public async Task<IPanel[]> Get(){
+            return await _panelRepository.GetAllPanelsAsync();
         }
 
     }

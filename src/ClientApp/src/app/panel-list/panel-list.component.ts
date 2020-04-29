@@ -12,9 +12,11 @@ export class PanelListComponent implements OnInit {
   panels: IPanel[];
 
   constructor(http: HttpClient) {
-    http.get<IPanel[]>('/panels').subscribe(res=>{
+    const endpoint = '/api/panels';
+    //IPanel[]
+    http.get<IPanel[]>(endpoint).subscribe(res=>{
       this.panels = res;
-      console.log("hay, this is angular");
+      console.log("hay, this is angular on: "+ endpoint);
     }, err => console.log(err));
    }
 
