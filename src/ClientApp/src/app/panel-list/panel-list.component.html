@@ -7,7 +7,10 @@
                     <h5 class="card-title">{{panel.name}}</h5>
                 </div>
                 <div class="row">
-                    <span class="card-text">{{panel.description}}</span>
+                    <span class="card-text">{{panel.description}}</span>                
+                </div>
+                <div class="row">
+                    <button class="btn btn-secondary btn-danger text-align-right" (click)="deletePanel({{panel.id}})">Delete</button>
                 </div>
             </div>
         </div>

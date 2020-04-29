@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IPanel } from './IPanel';
+import { Observable, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-panel-list',
@@ -10,18 +12,37 @@ import { IPanel } from './IPanel';
 export class PanelListComponent implements OnInit {
  
   panels: IPanel[];
+  private endpoint: string = '/api/panels';
+  errorMessage: string;
 
-  constructor(http: HttpClient) {
-    const endpoint = '/api/panels';
-    //IPanel[]
-    http.get<IPanel[]>(endpoint).subscribe(res=>{
-      this.panels = res;
-      console.log("hay, this is angular on: "+ endpoint);
-    }, err => console.log(err));
+  constructor(private http: HttpClient) {
    }
 
   ngOnInit(): void {
+    //Fetch panels
+    this.getPanels().subscribe({
+      next: panels => {
+        this.panels = panels;
+      },
+      error: err => this.errorMessage = err
+    });
   }
+  
+  //Panels service
+  getPanels(): Observable<IPanel[]> {
+    return this.http.get<IPanel[]>(this.endpoint).pipe(
+      tap(data=>console.log(data)),
+      catchError(this.handleError)
+    );
+  }
+  handleError(err: HttpErrorResponse){
+    return throwError(err.error.message);
+  }
+
+  deletePanel(id: number): Observable<IPanel[]> {
+    return this.http.delete(this.endpoint);
+  }
+
 }
 
 

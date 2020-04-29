@@ -28,5 +28,11 @@ namespace panel_builder_app_web.Controllers{
             return await _panelRepository.GetAllPanelsAsync();
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IPanel[]> Delete(int id)
+        {
+          _panelRepository.Delete(id);
+          return await _panelRepository.GetAllPanelsAsync();
+        }
     }
 }
