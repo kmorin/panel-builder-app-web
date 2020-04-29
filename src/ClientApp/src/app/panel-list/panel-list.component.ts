@@ -14,6 +14,7 @@ export class PanelListComponent implements OnInit {
   constructor(http: HttpClient) {
     http.get<IPanel[]>('/panels').subscribe(res=>{
       this.panels = res;
+      console.log("hay, this is angular");
     }, err => console.log(err));
    }
 

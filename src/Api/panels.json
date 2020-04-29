@@ -1,9 +1,18 @@
-[{
-    "Name": "testPanel1",
-    "Description": "testDescription1"
-},
-{
-    "Name": "testPanel2",
-    "Description": "testDescription2"
-}
+[
+    {
+        "Name": "testPanel1",
+        "Description": "testDescription1"
+    },
+    {
+        "Name": "testPanel2",
+        "Description": "testDescription2"
+    },
+    {
+        "Name": "Panel3",
+        "Description": "This is a panel like never before seen"
+    },
+    {
+        "Name": "Panel4",
+        "Description": "Desc 4"
+    }
 ]
