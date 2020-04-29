@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace panel_builder_app_web.Models
@@ -9,7 +10,9 @@ namespace panel_builder_app_web.Models
     public void Delete(int id);
     Task<bool> SaveChangesAsync();
 
-    //Camps
-    Task<Panel[]> GetAllPanelsAsync();
+    //Panels
+    Task<List<Panel>> GetAllPanelsAsync();
+    Task<Panel> GetPanelAsync(int id);
+
     }
 }

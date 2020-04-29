@@ -9,7 +9,8 @@ using System.Collections.Generic;
 using panel_builder_app_web.Models;
 using System.Threading.Tasks;
 
-namespace panel_builder_app_web.Controllers{
+namespace panel_builder_app_web.Controllers
+{
 
     [ApiController]
     [Route("api/[controller]")]
@@ -18,21 +19,29 @@ namespace panel_builder_app_web.Controllers{
         private readonly ILogger<PanelsController> _logger;
         private readonly IPanelRepository _panelRepository;
 
-        public PanelsController(ILogger<PanelsController> logger, IPanelRepository panelRepository){
+        public PanelsController(ILogger<PanelsController> logger, IPanelRepository panelRepository)
+        {
             _logger = logger;
             _panelRepository = panelRepository;
         }
 
         [HttpGet]
-        public async Task<IPanel[]> Get(){
+        public async Task<List<Panel>> Get()
+        {
             return await _panelRepository.GetAllPanelsAsync();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IPanel[]> Delete(int id)
+        [HttpGet("{id}", Name = "Get")]
+        public async Task<IPanel> Get(int id)
         {
-          _panelRepository.Delete(id);
-          return await _panelRepository.GetAllPanelsAsync();
+            return await _panelRepository.GetPanelAsync(id);
+        }
+        
+        [HttpDelete("{id}")]
+        public int Delete(int id)
+        {
+            _panelRepository.Delete(id);
+            return id;
         }
     }
 }

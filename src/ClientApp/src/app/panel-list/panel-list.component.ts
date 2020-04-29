@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IPanel } from '../panel-detail/IPanel';
 import { Observable, throwError } from 'rxjs';
@@ -35,6 +35,7 @@ export class PanelListComponent implements OnInit {
       catchError(this.handleError)
     );
   }
+
   handleError(err: HttpErrorResponse){
     return throwError(err.error.message);
   }

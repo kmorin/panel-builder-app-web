@@ -4,19 +4,20 @@ using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using panel_builder_app_web.Models;
+using System.Collections.Generic;
 
 namespace panel_builder_app_web.Services
 {
     public class PanelRepository : IPanelRepository
     {
-        public Panel[] Panels { get; private set; }
+        public List<Panel> Panels { get; private set; }
 
         //Populate panels
         public PanelRepository()
         {
             string json = System.IO.File.ReadAllText("Api/panels.json");
             try{ 
-              Panels = JsonSerializer.Deserialize<Panel[]>(json);            
+              Panels = JsonSerializer.Deserialize<List<Panel>>(json);            
             }
             catch(Exception ex){ 
               Console.WriteLine(ex);
@@ -30,14 +31,22 @@ namespace panel_builder_app_web.Services
 
         public void Delete(int id)
         {
-            var pList = Panels.ToList();
-            pList.RemoveAt(id);
-            Panels = pList.ToArray();
+            Panel panel = Panels.FirstOrDefault(x=>x.Id == id);
+            if (panel != null)
+            {
+                var didRemove = Panels.Remove(panel);
+                if (!didRemove) throw new Exception("Didn't delete");
+            }
         }
 
-        public async Task<Panel[]> GetAllPanelsAsync()
+        public async Task<List<Panel>> GetAllPanelsAsync()
         {
             return Panels ?? null;
+        }
+
+        public async Task<Panel> GetPanelAsync(int id)
+        {
+            return Panels.FirstOrDefault(x=>x.Id == id);
         }
 
         public async Task<bool> SaveChangesAsync()

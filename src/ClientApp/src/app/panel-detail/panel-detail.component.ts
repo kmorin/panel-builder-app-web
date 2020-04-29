@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IPanel } from './IPanel';
+import { Observable, throwError, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-panel-detail',
@@ -8,24 +11,57 @@ import { IPanel } from './IPanel';
   styleUrls: ['./panel-detail.component.css']
 })
 export class PanelDetailComponent implements OnInit {
+  private endpoint: string = 'api/panels';
+  panel: IPanel | undefined;
 
-  private endpoint: string = '/api/panels';
-  private _panel: IPanel;
+  errorMessage: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router) { 
+
+    }
 
   ngOnInit(): void {
+    const param = this.route.snapshot.paramMap.get('id');
+    if (param){
+      const id = +param;
+      this.getPanel(id);
+    }
   }
 
-  //Setup property to bind to the component. Needed to isolate
-  @Input()
-  set panel(panel: IPanel) {
-    this._panel = panel;
+  getPanel(id: number) {
+    this.getPanelAction(id).subscribe({
+      next: panel => this.panel = panel,
+      error: err => this.errorMessage = err
+    });
   }
-  get panel(): IPanel { return this._panel; }
 
   deletePanel(): void {
-    alert("Are you sure to delete "+ this.panel.id);
-    this.http.delete(this.endpoint+'/'+this._panel.id);
+    this.deletePanelAction(this.panel.id).subscribe({
+      next: p => this.router.navigate(['/panels'])
+    });
+  }
+
+  /* Actions */
+  getPanelAction(id: number): Observable<IPanel | undefined> {
+    const url = `${this.endpoint}/${id}`;
+    return this.http.get<IPanel>(url)
+      .pipe(
+        catchError(this.handleE)
+      );
+  }
+
+  deletePanelAction(id: number): Observable<{}> {
+    const url = `${this.endpoint}/${id}`; // DELETE api/heroes/42
+    alert('deleting panel ' + url);
+    return this.http.delete(url)
+      .pipe(
+        catchError(this.handleE)
+      );
+  }
+
+  handleE(err: HttpErrorResponse) {
+    return throwError(err.error.message);
   }
 }

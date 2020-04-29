@@ -1,6 +1,15 @@
 <h1>Panel List</h1>
 <div class="container-fluid">
     <div class="mb-0" *ngIf="panels">
-            <app-panel-detail *ngFor="let panel of panels" [panel]="panel"></app-panel-detail>
+        <div class="card" *ngFor="let panel of panels">
+            <div class="card-body">
+            <div class="row">
+                <a [routerLink]="['/panels', panel.id]" class="card-title">{{panel?.name}}</a>
+            </div>
+            <div class="row">
+                <span class="card-text">{{panel?.description}}</span>
+            </div>  
+            </div>      
+        </div>
     </div>
 </div>
