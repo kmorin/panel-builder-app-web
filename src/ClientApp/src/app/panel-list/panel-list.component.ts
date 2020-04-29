@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { IPanel } from './IPanel';
+import { IPanel } from '../panel-detail/IPanel';
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
@@ -37,10 +37,6 @@ export class PanelListComponent implements OnInit {
   }
   handleError(err: HttpErrorResponse){
     return throwError(err.error.message);
-  }
-
-  deletePanel(id: number): Observable<IPanel[]> {
-    return this.http.delete(this.endpoint);
   }
 
 }

@@ -1,18 +1,6 @@
 <h1>Panel List</h1>
 <div class="container-fluid">
     <div class="mb-0" *ngIf="panels">
-        <div class="card" *ngFor="let panel of panels">
-            <div class="card-body">
-                <div class="row">
-                    <h5 class="card-title">{{panel.name}}</h5>
-                </div>
-                <div class="row">
-                    <span class="card-text">{{panel.description}}</span>                
-                </div>
-                <div class="row">
-                    <button class="btn btn-secondary btn-danger text-align-right" (click)="deletePanel({{panel.id}})">Delete</button>
-                </div>
-            </div>
-        </div>
+            <app-panel-detail *ngFor="let panel of panels" [panel]="panel"></app-panel-detail>
     </div>
 </div>
