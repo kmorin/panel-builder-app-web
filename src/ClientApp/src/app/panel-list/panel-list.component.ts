@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { IPanel } from './IPanel';
 
 @Component({
   selector: 'app-panel-list',
@@ -20,7 +21,4 @@ export class PanelListComponent implements OnInit {
   }
 }
 
-interface IPanel {
-  name: string;
-  description: string;
-}
+
