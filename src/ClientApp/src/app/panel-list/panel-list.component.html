@@ -1,7 +1,7 @@
 <h1>Panel List</h1>
-<div *ngIf="panels">
+<div *ngIf="panels && panels.length">
     <div class="card" *ngFor="let panel of panels">
-        <div class="card-body">
+        <div class="card-body ml-2">
         <div class="row">
             <a [routerLink]="['/panels', panel.id]" class="card-title">{{panel?.name}}</a>
         </div>
@@ -11,3 +11,10 @@
         </div>      
     </div>
 </div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+    Error: {{errorMessage}}
+</div>
+<blockquote class="blockquote" *ngIf="!panels.length">
+    <p class="mb-0">No Panels</p>
+    <footer class="blockquote-footer"> <cite title="Source Title">yo momma</cite></footer>
+</blockquote>
