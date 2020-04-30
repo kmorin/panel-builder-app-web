@@ -1,13 +1,13 @@
 [
     {
-        "Id": 1,
-        "Name": "testPanel1",
-        "DistSystemName": "testDistSystemName1",
-        "Circuits":[{
-            "Number": 1,
-            "NumPoles": 3,
-            "Load": 100,
-            "Description": "THis"
+        "id": 1,
+        "name": "testPanel1",
+        "distSystemName": "testDistSystemName1",
+        "circuits":[{
+            "number": 1,
+            "numPoles": 3,
+            "load": 100,
+            "description": "THis"
         }]
     },
     {

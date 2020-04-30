@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Xml.Linq;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -15,9 +14,10 @@ namespace panel_builder_app_web.Services
         //Populate panels
         public PanelRepository()
         {
+            var options = new JsonSerializerOptions{ PropertyNameCaseInsensitive = true};
             string json = System.IO.File.ReadAllText("Api/panels.json");
             try{ 
-              Panels = JsonSerializer.Deserialize<List<Panel>>(json);            
+              Panels = JsonSerializer.Deserialize<List<Panel>>(json, options);            
             }
             catch(Exception ex){ 
               Console.WriteLine(ex);
