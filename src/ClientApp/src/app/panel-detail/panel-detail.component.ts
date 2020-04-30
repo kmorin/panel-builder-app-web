@@ -32,7 +32,10 @@ export class PanelDetailComponent implements OnInit {
 
   getPanel(id: number) {
     this.getPanelAction(id).subscribe({
-      next: panel => this.panel = panel,
+      next: panel => {
+        if (panel === null){ this.router.navigate(['/panels'])}
+        this.panel = panel 
+      },
       error: err => this.errorMessage = err
     });
   }
@@ -54,7 +57,7 @@ export class PanelDetailComponent implements OnInit {
 
   deletePanelAction(id: number): Observable<{}> {
     const url = `${this.endpoint}/${id}`; // DELETE api/heroes/42
-    alert('deleting panel ' + url);
+    alert('deleting panel ' + this.panel.name);
     return this.http.delete(url)
       .pipe(
         catchError(this.handleE)
