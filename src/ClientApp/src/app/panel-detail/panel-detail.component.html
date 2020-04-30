@@ -4,7 +4,12 @@
     </div>
     <div class="card-body">
         <h4 class="card-title">{{panel.id}}</h4>
-        <p class="card-text">{{panel.description}}</p>
+        <p class="card-text">{{panel.distSystemName}}</p>
+        <div class="list-group" *ngIf="panel.circuits && panel.circuits.length">
+            <a href="#" class="list-group-item list-group-item-action active">Active item</a>
+            <a href="#" class="list-group-item list-group-item-action">Item</a>
+            <a href="#" class="list-group-item list-group-item-action disabled">Disabled item</a>
+        </div>
         <button type="button" class="btn btn-secondary btn-danger" (click)="deletePanel()">Delete</button>
     </div>
     <div class="card-footer text-muted">

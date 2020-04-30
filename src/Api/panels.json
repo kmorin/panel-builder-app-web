@@ -2,26 +2,32 @@
     {
         "Id": 1,
         "Name": "testPanel1",
-        "Description": "testDescription1"
+        "DistSystemName": "testDistSystemName1",
+        "Circuits":[{
+            "Number": 1,
+            "NumPoles": 3,
+            "Load": 100,
+            "Description": "THis"
+        }]
     },
     {
         "Id": 2,
         "Name": "testPanel2",
-        "Description": "testDescription2"
+        "DistSystemName": "testDistSystemName2"
     },
     {
         "Id": 3,
         "Name": "Panel3",
-        "Description": "This is a panel like never before seen"
+        "DistSystemName": "This is a panel like never before seen"
     },
     {
         "Id": 4,
         "Name": "Panel4",
-        "Description": "Desc 4"
+        "DistSystemName": "Desc 4"
     },
     {
         "Id": 5,
         "Name": "Panel5",
-        "Description": "Desc 4"
+        "DistSystemName": "Desc 4"
     }
 ]
