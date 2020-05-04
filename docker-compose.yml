@@ -1,0 +1,18 @@
+version: '3'
+services: 
+  db:
+    image: postgres
+    environment: 
+      POSTGRES_DB: aspcore
+      POSTGRES_USER: aspcore
+      POSTGRES_PASSWORD: secretlocal
+    ports:
+      - "5432:5432"
+    
+  web:
+    depends_on: 
+      - db
+    ports:
+      - "5000:80"
+    build:
+      context: .
