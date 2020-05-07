@@ -1,7 +1,7 @@
 {
 	"name": "panel-builder-web",
 	"build":{
-		"dockerfile":"Dockerfile",
+		"dockerfile":"../docker/Dockerfile-devcontainer",
 		"args":{
 		}
 	},

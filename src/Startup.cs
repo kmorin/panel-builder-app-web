@@ -70,8 +70,8 @@ namespace panel_builder_app_web
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
-
+                    spa.UseAngularCliServer(npmScript: "start");                                        
+                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
         }
