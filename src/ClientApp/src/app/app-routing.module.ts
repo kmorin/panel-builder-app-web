@@ -7,8 +7,7 @@ import { PanelDetailComponent } from './panel-detail/panel-detail.component';
 
 
 const routes: Routes = [
-  // {path: '', component: HomeComponent, pathMatch: 'full'},
-  {path: '', component: PanelListComponent, pathMatch: 'full'},
+  {path: '', component: HomeComponent, pathMatch: 'full'},
   {path: 'panels', component: PanelListComponent, pathMatch: 'full'},
   {path: 'panels/:id', component: PanelDetailComponent, pathMatch: 'full'},
   {path: '**', redirectTo: '', pathMatch: 'full'}
