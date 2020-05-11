@@ -35,9 +35,11 @@ namespace panel_builder_app_web.Services
             return await _context.Panels.ToListAsync();
         }
 
-        public async Task<Panel> GetPanelAsync(int id)
+        public async Task<Panel> GetPanelAsync(int id, bool withCircuits)
         {
-            var p = await _context.Panels.Include(p=>p.Circuits).FirstOrDefaultAsync(p=>p.Id == id);           
+            Panel p;
+            if (withCircuits) p = await _context.Panels.Include(p=>p.Circuits).FirstOrDefaultAsync(p=>p.Id == id);
+            else p = await _context.Panels.FirstOrDefaultAsync(p=>p.Id == id);
             return p;
         }
     }

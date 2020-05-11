@@ -45,7 +45,7 @@ namespace panel_builder_app_web.Services
             return Panels ?? null;
         }
 
-        public async Task<Panel> GetPanelAsync(int id)
+        public async Task<Panel> GetPanelAsync(int id, bool withCircuits)
         {
             return Panels.FirstOrDefault(x=>x.Id == id);
         }

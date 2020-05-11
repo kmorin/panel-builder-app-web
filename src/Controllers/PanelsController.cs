@@ -32,9 +32,9 @@ namespace panel_builder_app_web.Controllers
         }
 
         [HttpGet("{id}", Name = "Get")]
-        public async Task<IPanel> Get(int id)
+        public async Task<IPanel> Get(int id, bool withCircuits = true)
         {
-            return await _panelRepository.GetPanelAsync(id);
+            return await _panelRepository.GetPanelAsync(id, withCircuits);
         }
         
         [HttpDelete("{id}")]

@@ -11,6 +11,6 @@ namespace panel_builder_app_web.Models
 
     //Panels
     Task<List<Panel>> GetAllPanelsAsync();
-    Task<Panel> GetPanelAsync(int id);    
+    Task<Panel> GetPanelAsync(int id, bool withCircuits);    
     }
 }
