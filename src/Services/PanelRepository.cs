@@ -21,9 +21,12 @@ namespace panel_builder_app_web.Services
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public async Task<int> Delete(int id)
         {
-            throw new NotImplementedException();
+            var p = _context.Panels.FirstOrDefaultAsync(p=>p.Id == id);
+            if (p != null) _context.Panels.Remove(p.Result);
+            await _context.SaveChangesAsync();
+            return id;
         }
 
         public Task<List<Panel>> GetAllPanelsAsync()
@@ -33,7 +36,7 @@ namespace panel_builder_app_web.Services
 
         public Task<Panel> GetPanelAsync(int id)
         {
-            throw new NotImplementedException();
+            return _context.Panels.FirstOrDefaultAsync(p=>p.Id == id);           
         }
 
         public Task<bool> SaveChangesAsync()

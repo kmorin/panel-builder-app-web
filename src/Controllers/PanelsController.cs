@@ -38,9 +38,9 @@ namespace panel_builder_app_web.Controllers
         }
         
         [HttpDelete("{id}")]
-        public int Delete(int id)
+        public async Task<int> Delete(int id)
         {
-            _panelRepository.Delete(id);
+            await _panelRepository.Delete(id);
             return id;
         }
     }

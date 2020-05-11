@@ -51,7 +51,7 @@ namespace panel_builder_app_web.Migrations
                         column: x => x.PanelId,
                         principalTable: "Panels",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

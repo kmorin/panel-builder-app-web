@@ -29,7 +29,7 @@ namespace panel_builder_app_web.Services
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public async Task<int> Delete(int id)
         {
             Panel panel = Panels.FirstOrDefault(x=>x.Id == id);
             if (panel != null)
@@ -37,6 +37,7 @@ namespace panel_builder_app_web.Services
                 var didRemove = Panels.Remove(panel);
                 if (!didRemove) throw new Exception("Didn't delete");
             }
+            return id;
         }
 
         public async Task<List<Panel>> GetAllPanelsAsync()
