@@ -31,6 +31,7 @@ namespace panel_builder_app_web
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             OnModelCreatingPartial(modelBuilder);
+            // modelBuilder.Entity<Panel>().HasMany(p=>p.Circuits).WithOne();
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

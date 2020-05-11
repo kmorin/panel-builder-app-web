@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,19 +30,15 @@ namespace panel_builder_app_web.Services
             return id;
         }
 
-        public Task<List<Panel>> GetAllPanelsAsync()
+        public async Task<List<Panel>> GetAllPanelsAsync()
         {
-            return _context.Panels.ToListAsync();
+            return await _context.Panels.ToListAsync();
         }
 
-        public Task<Panel> GetPanelAsync(int id)
+        public async Task<Panel> GetPanelAsync(int id)
         {
-            return _context.Panels.FirstOrDefaultAsync(p=>p.Id == id);           
-        }
-
-        public Task<bool> SaveChangesAsync()
-        {
-            throw new NotImplementedException();
+            var p = await _context.Panels.Include(p=>p.Circuits).FirstOrDefaultAsync(p=>p.Id == id);           
+            return p;
         }
     }
 }

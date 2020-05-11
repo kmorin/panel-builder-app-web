@@ -54,5 +54,10 @@ namespace panel_builder_app_web.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<List<Circuit>> GetPanelCircuitsAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

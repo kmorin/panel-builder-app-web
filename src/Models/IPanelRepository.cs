@@ -8,11 +8,9 @@ namespace panel_builder_app_web.Models
     {
     void Add<T>(T entity) where T : class;
     Task<int> Delete(int id);
-    Task<bool> SaveChangesAsync();
 
     //Panels
     Task<List<Panel>> GetAllPanelsAsync();
-    Task<Panel> GetPanelAsync(int id);
-
+    Task<Panel> GetPanelAsync(int id);    
     }
 }
