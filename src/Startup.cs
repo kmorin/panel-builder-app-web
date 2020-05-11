@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +23,11 @@ namespace panel_builder_app_web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IPanelRepository,PanelJsonRepository>();
+            services.AddDbContext<PanelContext>(opts =>
+            {
+                opts.UseNpgsql(Configuration.GetConnectionString("PanelRepository"));
+            });
+            services.AddScoped<IPanelRepository, PanelRepository>();
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -55,11 +60,11 @@ namespace panel_builder_app_web
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-            });
+        {
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller}/{action=Index}/{id?}");
+        });
 
             app.UseSpa(spa =>
             {
@@ -70,7 +75,7 @@ namespace panel_builder_app_web
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");                                        
+                    spa.UseAngularCliServer(npmScript: "start");
                     // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
