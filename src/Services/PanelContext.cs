@@ -36,6 +36,7 @@ namespace panel_builder_app_web
         {
             OnModelCreatingPartial(modelBuilder);
             modelBuilder.Entity<Panel>().HasQueryFilter(d=>d.DeletedAt == null);
+            modelBuilder.Entity<Circuit>().HasQueryFilter(d=>d.DeletedAt == null);
             modelBuilder.UseSerialColumns();
         }
 
