@@ -19,7 +19,15 @@ namespace panel_builder_app_web.Services
 
         public void Add<T>(T entity) where T : class
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.AddAsync<T>(entity);
+                _context.SaveChangesAsync();
+            }
+            catch (System.Exception)
+            {                
+                throw;
+            }
         }
 
         public async Task<int> Delete(int id)
