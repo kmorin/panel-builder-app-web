@@ -1,11 +1,13 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace panel_builder_app_web.Models
 {
-    public class Panel : IPanel
+    public class Panel : BaseDbObject, IPanel
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        [Key]
         public int Id { get; set; }
         public string DistSystemName { get; set; }
         public string AicRating { get; set; }

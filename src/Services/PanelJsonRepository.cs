@@ -24,12 +24,12 @@ namespace panel_builder_app_web.Services
             }
         }
 
-        public void Add<T>(T entity) where T : class
+        public Task<bool> Add(Panel panel)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<int> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             Panel panel = Panels.FirstOrDefault(x=>x.Id == id);
             if (panel != null)
@@ -37,7 +37,7 @@ namespace panel_builder_app_web.Services
                 var didRemove = Panels.Remove(panel);
                 if (!didRemove) throw new Exception("Didn't delete");
             }
-            return id;
+            return true;
         }
 
         public async Task<List<Panel>> GetAllPanelsAsync()

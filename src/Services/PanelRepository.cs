@@ -17,25 +17,40 @@ namespace panel_builder_app_web.Services
             _context = context;
         }
 
-        public void Add<T>(T entity) where T : class
+        public async Task<bool> Add(Panel panel)
         {
             try
             {
-                _context.AddAsync<T>(entity);
-                _context.SaveChangesAsync();
+                panel.CreatedAt = DateTime.Now;
+                await _context.Panels.AddAsync(panel);
+                await _context.SaveChangesAsync();
             }
             catch (System.Exception)
-            {                
+            {
+                return false;
                 throw;
             }
+            return true;
         }
 
-        public async Task<int> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            var p = _context.Panels.FirstOrDefaultAsync(p=>p.Id == id);
-            if (p != null) _context.Panels.Remove(p.Result);
-            await _context.SaveChangesAsync();
-            return id;
+            try
+            {
+                var p = await _context.Panels.Include(p=>p.Circuits).FirstOrDefaultAsync(p => p.Id == id);
+                if (p != null) {
+                    List<Circuit> c = p.Circuits;
+                    _context.Circuits.RemoveRange(c);
+                    _context.Panels.Remove(p);
+                }
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            return true;
         }
 
         public async Task<List<Panel>> GetAllPanelsAsync()
@@ -46,8 +61,8 @@ namespace panel_builder_app_web.Services
         public async Task<Panel> GetPanelAsync(int id, bool withCircuits)
         {
             Panel p;
-            if (withCircuits) p = await _context.Panels.Include(p=>p.Circuits).FirstOrDefaultAsync(p=>p.Id == id);
-            else p = await _context.Panels.FirstOrDefaultAsync(p=>p.Id == id);
+            if (withCircuits) p = await _context.Panels.Include(p => p.Circuits).FirstOrDefaultAsync(p => p.Id == id);
+            else p = await _context.Panels.FirstOrDefaultAsync(p => p.Id == id);
             return p;
         }
     }

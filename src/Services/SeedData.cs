@@ -22,7 +22,6 @@ namespace panel_builder_app_web.Services
                 context.Panels.AddRange(
                     new Panel
                     {
-                        Id = 1,
                         Name = "Panel1",
                         Description = "Panel Desc",
                         DistSystemName = "120/208v",
@@ -35,7 +34,6 @@ namespace panel_builder_app_web.Services
                         Mounting = "Surface",
                         Circuits = new System.Collections.Generic.List<Circuit>{
                             new Circuit{
-                                Id = 1,
                                 Number = 1,
                                 NumPoles = 1,
                                 Description = "Lits",
@@ -47,7 +45,6 @@ namespace panel_builder_app_web.Services
                     },
                     new Panel
                     {
-                        Id = 2,
                         Name = "Panel2",
                         Description = "Panel Desc",
                         DistSystemName = "120/208v",
@@ -57,7 +54,7 @@ namespace panel_builder_app_web.Services
                         CircuitLoadClassification = "Lighting",
                         FilePath = "c",
                         McbRating = 400,
-                        Mounting = "Surface"
+                        Mounting = "Surface"                        
                     }
                 );
 

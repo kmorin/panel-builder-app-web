@@ -38,18 +38,16 @@ namespace panel_builder_app_web.Controllers
         }
         
         [HttpDelete("{id}")]
-        public async Task<int> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            await _panelRepository.Delete(id);
-            return id;
+            var didDelete = await _panelRepository.Delete(id);
+            return true;
         }
 
         [HttpPost]
         public async Task<Panel> Create(Panel panel) {
-            if (ModelState.IsValid) {
-                _panelRepository.Add<Panel>(panel);
-            }
-            return panel;
+            bool didAdd = await _panelRepository.Add(panel);
+            return didAdd ? panel : null;
         }
     }
 }

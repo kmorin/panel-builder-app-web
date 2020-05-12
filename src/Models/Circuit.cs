@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace panel_builder_app_web.Models
 {
-    public class Circuit : ICircuit
+    public class Circuit : BaseDbObject, ICircuit
     {
+        [Key]
         public int Id { get; set; }
         public string Description { get; set; }
         public int Load { get; set; }
