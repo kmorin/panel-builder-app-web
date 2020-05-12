@@ -30,11 +30,9 @@ namespace panel_builder_app_web.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
@@ -56,7 +54,6 @@ namespace panel_builder_app_web.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
@@ -83,11 +80,9 @@ namespace panel_builder_app_web.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
@@ -112,7 +107,6 @@ namespace panel_builder_app_web.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");

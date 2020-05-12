@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using panel_builder_app_web.Models;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Threading;
 
 namespace panel_builder_app_web
 {
@@ -34,26 +35,43 @@ namespace panel_builder_app_web
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             OnModelCreatingPartial(modelBuilder);
+            modelBuilder.Entity<Panel>().HasQueryFilter(d=>d.DeletedAt == null);
             modelBuilder.UseSerialColumns();
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        public override int SaveChanges()
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            UpdateDeletedAt();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+        public override int SaveChanges(){
+            UpdateDeletedAt();
+            return base.SaveChanges();
+        }
+
+        private void UpdateDeletedAt()
         {
             ChangeTracker.DetectChanges();
-            var entities = ChangeTracker.Entries()
-            .Where(e => e.State == EntityState.Deleted);
-
-            foreach (var item in entities)
+            foreach (var entry in ChangeTracker.Entries())
             {
-                if (item.Entity is ISoftDelete entity) {
-                  item.State = EntityState.Unchanged;
-                  entity.DeletedAt = DateTime.Now;
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.CurrentValues["CreatedAt"] = DateTime.Now;
+                        break;
+                    case EntityState.Modified:
+                        entry.CurrentValues["UpdatedAt"] = DateTime.Now;
+                        break;
+                    case EntityState.Deleted:
+                        entry.State = EntityState.Unchanged;
+                        entry.CurrentValues["DeletedAt"] = DateTime.Now;
+                        break;
+                    default:
+                        break;
                 }
             }
-
-            return base.SaveChanges();
         }
     }
 }

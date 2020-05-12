@@ -21,7 +21,6 @@ namespace panel_builder_app_web.Services
         {
             try
             {
-                panel.CreatedAt = DateTime.Now;
                 await _context.Panels.AddAsync(panel);
                 await _context.SaveChangesAsync();
             }
